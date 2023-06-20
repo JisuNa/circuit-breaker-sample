@@ -1,0 +1,57 @@
+
+logging:
+  level:
+    com:
+      example:
+        resilence4j:
+          openfeign: DEBUG
+
+spring:
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      alphanumeric-ids:
+        enabled: true
+      httpclient:
+        enabled: true
+        connection-timeout: 5000
+        max-connections: 200
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowSize: 2
+      minimumNumberOfCalls: 2
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 1
+      eventConsumerBufferSize: 10
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+        - java.util.concurrent.TimeoutException
+        - java.io.IOException
+      ignoreExceptions:
+        - com.example.resilence4j.config.BusinessException
+    shared:
+      slidingWindowSize: 2
+      permittedNumberOfCallsInHalfOpenState: 2
+      waitDurationInOpenState: 1s
+      failureRateThreshold: 2
+      eventConsumerBufferSize: 2
+      ignoreExceptions:
+        - com.example.resilence4j.config.BusinessException
+  instances:
+    backendA:
+      baseConfig: default
+    backendB:
+      registerHealthIndicator: true
+      slidingWindowSize: 2
+      minimumNumberOfCalls: 2
+      permittedNumberOfCallsInHalfOpenState: 2
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 2
+      eventConsumerBufferSize: 2
+      recordFailurePredicate: com.example.resilence4j.config.RecordFailurePredicate
