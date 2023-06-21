@@ -1,4 +1,3 @@
-
 logging:
   level:
     com:
@@ -9,49 +8,65 @@ logging:
 spring:
   cloud:
     openfeign:
-      circuitbreaker:
-        enabled: true
+      #      circuitbreaker:
+      #        enabled: true
       alphanumeric-ids:
         enabled: true
       httpclient:
         enabled: true
         connection-timeout: 5000
         max-connections: 200
+      config:
+        log-client:
+          loggerLevel: FULL
 
 resilience4j.circuitbreaker:
   configs:
     default:
-      registerHealthIndicator: true
-      slidingWindowSize: 2
-      minimumNumberOfCalls: 2
+      registerHealthIndicator: true # actuator ?? ??? ?? ??
+      failureRateThreshold: 80 # ??? ??? ?? ???(???)?? ? ?? ???? ??? ???.
+      waitDurationInOpenState: 1m # ?? ??? ???? ??, ?? ???? ??? ??? ????.
+      slidingWindowType: COUNT_BASED
+      #      registerHealthIndicator: true
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 10
       permittedNumberOfCallsInHalfOpenState: 3
       automaticTransitionFromOpenToHalfOpenEnabled: true
-      waitDurationInOpenState: 5s
-      failureRateThreshold: 1
-      eventConsumerBufferSize: 10
-      recordExceptions:
-        - org.springframework.web.client.HttpServerErrorException
-        - java.util.concurrent.TimeoutException
-        - java.io.IOException
+#      recordExceptions:
+#        - java.net.UnknownHostException
+#        - org.springframework.web.client.HttpServerErrorException
+#        - java.util.concurrent.TimeoutException
+#        - java.io.IOException
       ignoreExceptions:
         - com.example.resilence4j.config.BusinessException
-    shared:
-      slidingWindowSize: 2
-      permittedNumberOfCallsInHalfOpenState: 2
-      waitDurationInOpenState: 1s
-      failureRateThreshold: 2
-      eventConsumerBufferSize: 2
-      ignoreExceptions:
-        - com.example.resilence4j.config.BusinessException
+  #    shared:
+  #      slidingWindowSize: 100
+  #      permittedNumberOfCallsInHalfOpenState: 30
+  #      waitDurationInOpenState: 1s
+  #      failureRateThreshold: 50
+  #      eventConsumerBufferSize: 10
+  #      ignoreExceptions:
+  #        - com.example.resilence4j.config.BusinessException
   instances:
     backendA:
       baseConfig: default
-    backendB:
-      registerHealthIndicator: true
-      slidingWindowSize: 2
-      minimumNumberOfCalls: 2
-      permittedNumberOfCallsInHalfOpenState: 2
-      waitDurationInOpenState: 5s
-      failureRateThreshold: 2
-      eventConsumerBufferSize: 2
-      recordFailurePredicate: com.example.resilence4j.config.RecordFailurePredicate
+#    backendB:
+#      registerHealthIndicator: true
+#      slidingWindowSize: 10
+#      minimumNumberOfCalls: 10
+#      permittedNumberOfCallsInHalfOpenState: 3
+#      waitDurationInOpenState: 5s
+#      failureRateThreshold: 50
+#      eventConsumerBufferSize: 10
+#      recordFailurePredicate: com.example.resilence4j.config.RecordFailurePredicate
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*" #??????actuator????
+
+  health:
+    circuitbreakers:
+      enabled: true # circuitbreakers ?? ??

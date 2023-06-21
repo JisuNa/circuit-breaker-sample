@@ -9,13 +9,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/notification")
-class NotificationController(
-    @Qualifier("notificationAServiceImpl") private val notificationService: NotificationService
-) {
+class NotificationController(private val notificationService: NotificationService) {
 
     @GetMapping
     fun send() {
         notificationService.send()
     }
-
 }
