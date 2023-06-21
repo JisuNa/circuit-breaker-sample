@@ -1,4 +1,4 @@
-package com.example.resilence4j.service
+package com.example.resilience4j.service
 
 interface NotificationService {
     fun send()

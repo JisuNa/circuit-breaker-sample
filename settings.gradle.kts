@@ -1,1 +1,1 @@
-rootProject.name = "resilence4j"
+rootProject.name = "resilience4j"

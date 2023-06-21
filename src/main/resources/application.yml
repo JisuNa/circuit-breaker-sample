@@ -2,23 +2,24 @@ logging:
   level:
     com:
       example:
-        resilence4j:
+        resilience4j:
           openfeign: DEBUG
 
 spring:
   cloud:
     openfeign:
-      #      circuitbreaker:
-      #        enabled: true
       alphanumeric-ids:
         enabled: true
       httpclient:
-        enabled: true
+        hc5:
+          enabled: true
+          connection-request-timeout:
+          connection-request-timeout-unit: milliseconds
         connection-timeout: 5000
         max-connections: 200
       config:
-        log-client:
-          loggerLevel: FULL
+        default:
+          ion
 
 resilience4j.circuitbreaker:
   configs:
@@ -37,8 +38,8 @@ resilience4j.circuitbreaker:
 #        - org.springframework.web.client.HttpServerErrorException
 #        - java.util.concurrent.TimeoutException
 #        - java.io.IOException
-      ignoreExceptions:
-        - com.example.resilence4j.config.BusinessException
+#      ignoreExceptions:
+#        - com.example.resilience4j.config.BusinessException
   #    shared:
   #      slidingWindowSize: 100
   #      permittedNumberOfCallsInHalfOpenState: 30

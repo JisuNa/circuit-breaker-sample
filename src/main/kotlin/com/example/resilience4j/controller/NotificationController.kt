@@ -1,9 +1,7 @@
-package com.example.resilence4j.controller
+package com.example.resilience4j.controller
 
-import com.example.resilence4j.service.NotificationService
-import org.springframework.beans.factory.annotation.Qualifier
+import com.example.resilience4j.service.NotificationService
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 

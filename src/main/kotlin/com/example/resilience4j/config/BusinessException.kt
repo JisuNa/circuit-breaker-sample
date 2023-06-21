@@ -1,3 +1,3 @@
-package com.example.resilence4j.config
+package com.example.resilience4j.config
 
 class BusinessException(message: String?) : RuntimeException(message)

@@ -1,4 +1,4 @@
-package com.example.resilence4j.external
+package com.example.resilience4j.external
 
 import feign.Response
 import org.springframework.cloud.openfeign.FeignClient

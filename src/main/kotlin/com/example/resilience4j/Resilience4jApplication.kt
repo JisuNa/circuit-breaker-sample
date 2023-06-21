@@ -1,11 +1,11 @@
-package com.example.resilence4j
+package com.example.resilience4j
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class Resilence4jApplication
+class Resilience4jApplication
 
 fun main(args: Array<String>) {
-    runApplication<Resilence4jApplication>(*args)
+    runApplication<Resilience4jApplication>(*args)
 }

@@ -1,6 +1,6 @@
-package com.example.resilence4j.service
+package com.example.resilience4j.service
 
-import com.example.resilence4j.external.TestClient
+import com.example.resilience4j.external.TestClient
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import org.springframework.stereotype.Service
 import java.lang.Exception
